@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+
 import "./sign-in.styles.css";
 
 const defaultFormFields = {
@@ -15,8 +17,8 @@ const SignIn = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
 
     setFormFields((prev) => {
       const updatedFields = { ...prev };
@@ -27,7 +29,7 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formFields);
+    signInAuthUserWithEmailAndPassword(email, password);
     resetFormFields();
   };
 

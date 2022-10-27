@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+
 import "./sign-up.styles.css";
 
 const defaultFormFields = {
@@ -16,8 +18,8 @@ const SignUp = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
 
     setFormFields((prev) => {
       const updatedFields = { ...prev };
@@ -28,8 +30,13 @@ const SignUp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formFields);
-    resetFormFields();
+
+    if (password === confirmPassword) {
+      createAuthUserWithEmailAndPassword(email, password);
+      resetFormFields();
+    } else {
+      console.log("Passwords do not match!");
+    }
   };
 
   return (
