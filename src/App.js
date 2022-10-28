@@ -1,41 +1,25 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "./contexts/user.context";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import { signOutAuthUser, auth } from "./utils/firebase/firebase.utils";
-
-import { onAuthStateChanged } from "firebase/auth";
-
-import Home from "./components/home/home.component";
+import Welcome from "./welcome/welcome.component";
 import Authentication from "./components/authentication/authentication.component";
+import Home from "./components/home/home.component";
 
 import "./App.css";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const { currentUser } = useContext(UserContext);
 
-  const signOutUser = () => {
-    console.log("Signing out user");
-    signOutAuthUser();
-  };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-      }
-    });
-
-    return unsubscribe;
-  }, []);
+  console.log(currentUser);
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="auth" element={<Authentication />} />
+        <Route path="/" element={<Welcome />} />
+        <Route path="/auth" element={<Authentication />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </div>
   );
