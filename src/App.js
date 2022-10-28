@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 
+import { Routes, Route, Link } from "react-router-dom";
+
 import { signOutAuthUser, auth } from "./utils/firebase/firebase.utils";
 
 import { onAuthStateChanged } from "firebase/auth";
 
-import SignUp from "./components/sign-up/sign-up.component";
-import SignIn from "./components/sign-in/sign-in.component";
+import Home from "./components/home/home.component";
+import Authentication from "./components/authentication/authentication.component";
 
 import "./App.css";
 
@@ -31,16 +33,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="title">Authentication App</h1>
-      <div className="forms-container">
-        <SignUp />
-        <SignIn />
-      </div>
-      {currentUser && (
-        <button className="sign-out-btn" onClick={signOutUser}>
-          Sign out
-        </button>
-      )}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="auth" element={<Authentication />} />
+      </Routes>
     </div>
   );
 };

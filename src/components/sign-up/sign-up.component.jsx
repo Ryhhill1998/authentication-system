@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
-import "./sign-up.styles.css";
-
 const defaultFormFields = {
   email: "",
   password: "",
