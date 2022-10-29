@@ -16,14 +16,15 @@ export const UserProvider = ({ children }) => {
     setCurrentUser,
   };
 
+  const saveUserToLocalStorage = (user) => {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       console.log(user);
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-      }
+      setCurrentUser(user);
+      saveUserToLocalStorage(user);
     });
 
     return unsubscribe;
